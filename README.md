@@ -9,7 +9,14 @@ The plugin hooks into serverless' `deploy` command. When the `deploy` command is
 * When the alert is triggered, it calls the Lambda and the Lambda executes the rollback using the previous version's CloudFormation template
 
 ### New service setup
-This is how to add the plugin to your service project. Assuming you've cloned the plugin repo to `[path/to/plugin/dir]`.
+This is how to add the plugin to your service project.
+#### From NPM
+* Switch to your own serverless service project directory
+* Run `npm install -g wavefront-serverless-rollback-plugin` to install plugin
+* Add `wavefront-serverless-rollback-plugin` to plugin list in your `serverless.yml`
+* Run `serverless deploy` to deploy your service with the rollback function
+#### From Cloned Plugin Repo
+Assuming you've cloned the plugin repo to `[path/to/plugin/dir]`.
 * Switch to your own serverless service project directory
 * Run `npm install -g [path/to/plugin/dir]` to install plugin
 * Add `wavefront-serverless-rollback-plugin` to plugin list in your `serverless.yml`
