@@ -7,6 +7,7 @@ The plugin hooks into serverless' `deploy` command. When the `deploy` command is
 * It uploads a rollback Lambda and sets up its REST API Gateway
 * It creates a Wavefront webhook and alert to call the Lambda
 * When the alert is triggered, it calls the Lambda and the Lambda executes the rollback using the previous version's CloudFormation template
+* After rolling back, the Lambda deletes its REST API Gateway, the Wavefront alert, and itself
 
 ### New service setup
 This is how to add the plugin to your service project.
