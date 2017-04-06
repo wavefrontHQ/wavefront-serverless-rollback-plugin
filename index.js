@@ -809,7 +809,7 @@ class ServerlessWavefrontRollback {
           target: alertTarget,
           condition: condition,
           minutes: alertMinutes,
-          severity: 'INFO'
+          severity: 'SEVERE'
         };
 
         if (previousAlert) {
