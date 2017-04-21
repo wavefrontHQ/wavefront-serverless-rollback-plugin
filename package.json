@@ -1,6 +1,6 @@
 {
   "name": "wavefront-serverless-rollback-plugin",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Auto rollback plugin integrated with Wavefront",
   "main": "index.js",
   "scripts": {

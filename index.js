@@ -46,6 +46,7 @@ class ServerlessWavefrontRollback {
 
       'after:deploy:deploy': () => BbPromise.bind(this)
         // .then(this.debugParams)
+        .then(this.triggerUserFunctionDeployedEvent)
         .then(this.checkDeployment)
         .then(this.getResources)
         .then(this.createApiGateway)
@@ -673,6 +674,39 @@ class ServerlessWavefrontRollback {
     });
 
     return BbPromise.resolve();
+  }
+
+  triggerUserFunctionDeployedEvent() {
+    this.triggerWavefrontEvent(this.serverless.service.service + ' deployed');
+  }
+
+  triggerWavefrontEvent(eventName) {
+    this.serverless.cli.log('Trigger Wavefront event: ' + eventName + '...');
+    
+    const wavefrontHost = this.serverless.service.custom.wavefrontApiInstanceUrl;
+    const time = Date.now();
+    return request({
+      url: wavefrontHost + '/api/v2/event',
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + this.wavefrontApiKey
+      },
+      json: {
+        "name": eventName,
+        "annotations": {
+          "severity": "info"
+        },
+        "startTime": time,
+        "endTime": time + 1,
+        "hosts": [this.serverless.service.service]
+      }
+    })
+    .spread((response, body, error) => {
+      if (error) {
+        return BbPromise.reject(error);
+      }
+      return BbPromise.resolve();
+    });
   }
 
   deployWavefrontAlert() {
