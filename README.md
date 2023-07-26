@@ -1,3 +1,7 @@
+> **Warning**
+>
+> VMware has ended active development of this project. this repository will no longer be updated.
+
 # wavefront-serverless-rollback-plugin
 Serverless plugin for doing a Lambda rollback when wavefront alert triggered
 
